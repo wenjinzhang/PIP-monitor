@@ -1,0 +1,2 @@
+sudo stdbuf -o0 ./pip_sense.v2 l l | stdbuf -o0 grep TX:0$1 |tee $2 
+

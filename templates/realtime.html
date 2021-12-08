@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<script type="text/javascript">
+    window.onload = function() {//当文档加载完毕时执行本函数
+        var form = document.getElementById("form1");//获取表单元素对象
+        $.ajaxSetup({
+        data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+        });
+        form.onsubmit = function() {//给表单元素添加一个监听，监听表单被提交事件
+            var usernameValue = form.username.value;//获取表单中名为username的表单元素值
+            if(!usernameValue) {//判断该值是否为空
+                var usernameSpan = document.getElementById("usernameSpan");//得到usernmae元素后的<span>元素
+                usernameSpan.innerText = "用户名不能为空！";//设置span元素内容！
+
+                return false;//返回false，表示拦截了表单提交动作
+            }
+            var passwordValue = form.password.value;
+            if(!passwordValue){
+                var passwordSpan = document.getElementById("passwordSpan");//得到usernmae元素后的<span>元素
+                passwordSpan.innerText = "用户名不能为空！";//设置span元素内容！
+                return false
+            }
+            return true;//不拦截表单提交动作
+        };
+    };
+</script>
+</head>
+<body>
+    <h1>注册页面</h1>
+
+    <form action="" method="post" id="form1">
+            {% csrf_token %}
+        用户名：<input type="text" name="username">
+        <span id="usernameSpan"></span>
+        <br/>密码：<input type="password" name="password">
+        <span id="passwordSpan"></span>
+        <br/>
+
+        <input type="submit" value="注册">
+
+    </form>
+</body>
+</html>

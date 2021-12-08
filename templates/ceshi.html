@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ceshi</title>
+    <script src="{% static "js/echarts.js" %}"></script>
+</head>
+<body>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Time</th>
+      <th>Temperature</th>
+      <th>Light</th>
+      <th>Humidity</th>
+    </tr>
+  </thead>
+    <tbody>
+        <tr>
+            {% for i in data %}
+{#            <td style="color: #010407;">{{ i}}</td>#}
+{#            <td>{{ data.time }}</td>#}
+{#            <td>{{ data.temp}}</td>#}
+{#            <td>{{ data.light}}</td>#}
+{#            <td>{{ data.humidity }}</td>#}
+                <td>{{ i.time }}</td>
+            <td>{{ i.temp}}</td>
+            <td>{{ i.light}}</td>
+            <td>{{ i.humidity }}</td>
+            <td>{{ i.close_price}}</td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
