@@ -20,4 +20,6 @@ from . import views
 urlpatterns = [
     # path('', views.pip_tag, name='pip'),
     path('', views.ajax_submit),
+    path('index', views.index),
+    path('history', views.history),
 ]

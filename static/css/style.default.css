@@ -118,7 +118,7 @@ table {
 
 .content-inner {
     padding:25px;
-    width: calc(100% - 250px);
+    /* width: calc(100% - 250px); */
     background: #EEF5F9;
     /* margin-left: 250px; */
 }

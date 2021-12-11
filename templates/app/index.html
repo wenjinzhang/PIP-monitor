@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+
+    <title></title>
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+
+    <!-- global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/font-icon-style.css">
+    <link rel="stylesheet" href="/static/css/style.default.css" id="theme-stylesheet">
+
+</head>
+
+<body>
+
+
+    <!--====================================================
+                        PAGE CONTENT
+======================================================-->
+    <div class="page-content align-items-stretch">
+
+        <div class="content-inner chart-cont">
+            <h1 style="margin: 0 auto;">Dynamic Data Monitor </h1>
+            <h4 id='date'></h4>
+            <!--***** CHART *****-->
+            <div class="row">
+                <div class="col-md-4 mt-2">
+                    <div class="card">
+                        <div class="card-block">
+                            <canvas id="temp" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mt-2">
+                    <div class="card">
+                        <div class="card-block">
+                            <canvas id="humi" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mt-2">
+                    <div class="card">
+                        <div class="card-block">
+                            <canvas id="light" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h2>Next Hour Tempture: 20</h2>
+            <button class="btn btn-primary">Re-Predict</button>
+        </div>
+    </div>
+
+    <!--Global Javascript -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/popper/popper.min.js"></script>
+    <script src="/static/js/tether.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+    <script src="/static/js/jquery.validate.min.js"></script>
+    <script src="/static/js/chart.min.js"></script>
+    <script src="/static/js/front.js"></script>
+
+    <!--Core Javascript -->
+    <!-- <script src="/static/js/chart-page.js"></script> -->
+    <script>
+        //Line chart
+        chart_temp = new Chart(document.getElementById("temp"), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    label: "temperature",
+                    borderColor: "#c45850",
+                    fill: false
+                }
+                ]
+            },
+
+            options: {
+                title: {
+                    display: true,
+                    text: 'Temperature(F)'
+                }
+            }
+        });
+
+        chart_humi = new Chart(document.getElementById("humi"), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    label: "Humidity",
+                    borderColor: "#c45850",
+                    fill: false
+                }
+                ]
+            },
+
+            options: {
+                title: {
+                    display: true,
+                    text: 'Humidity'
+                }
+            }
+        });
+
+        chart_light = new Chart(document.getElementById("light"), {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    data: [],
+                    label: "Light Strength",
+                    borderColor: "#c45850",
+                    fill: false
+                }
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Light Strength'
+                },
+                
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $.get("history", function (data, status) {
+                console.log(data);
+                chart_humi.data.datasets[0].data = data.humidity
+                chart_humi.data.labels = data.times;
+                chart_humi.update();
+                chart_light.data.datasets[0].data = data.light
+                chart_light.data.labels = data.times;
+                chart_light.update();
+                chart_temp.data.datasets[0].data = data.temp
+                chart_temp.data.labels = data.times;
+                chart_temp.update();
+
+                $("#date").text("Lastest Data Collected on " + data.latest);
+
+            });
+        });
+    </script>
+    </script>
+</body>
+
+</html>

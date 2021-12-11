@@ -9,4 +9,4 @@ class Data(models.Model):
     humidity = models.IntegerField('humidity')
 
     def __str__(self):
-        return "temperature:{};light:{};humidity:{}".format(self.temp, self.light, self.humidity)
+        return "time:{}; temperature:{}; light:{}; humidity:{}".format(self.time, self.temp, self.light, self.humidity)

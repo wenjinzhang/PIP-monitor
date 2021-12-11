@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sslserver',
-    "werkzeug_debugger_runserver",
+    # "werkzeug_debugger_runserver",
     "django_extensions",
     "pip_tag.apps.PipTagConfig",
 ]
