@@ -17,7 +17,7 @@ def ajax_submit(request):
                     light=data_dic['light'],
                     humidity=data_dic['humidity'])
         now = time.time()
-        if last_time - now >= 1:
+        if last_time - now >= 60:
             print(data.temp)
             data.save()
             last_time=now
