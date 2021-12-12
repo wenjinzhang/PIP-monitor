@@ -135,27 +135,30 @@
                     display: true,
                     text: 'Light Strength'
                 },
-                
+
             }
         });
     </script>
     <script>
         $(document).ready(function () {
-            $.get("history", function (data, status) {
-                console.log(data);
-                chart_humi.data.datasets[0].data = data.humidity
-                chart_humi.data.labels = data.times;
-                chart_humi.update();
-                chart_light.data.datasets[0].data = data.light
-                chart_light.data.labels = data.times;
-                chart_light.update();
-                chart_temp.data.datasets[0].data = data.temp
-                chart_temp.data.labels = data.times;
-                chart_temp.update();
+            setInterval(function () {
+                $.get("history", function (data, status) {
+                    console.log(data);
+                    chart_humi.data.datasets[0].data = data.humidity
+                    chart_humi.data.labels = data.times;
+                    chart_humi.update();
+                    chart_light.data.datasets[0].data = data.light
+                    chart_light.data.labels = data.times;
+                    chart_light.update();
+                    chart_temp.data.datasets[0].data = data.temp
+                    chart_temp.data.labels = data.times;
+                    chart_temp.update();
 
-                $("#date").text("Lastest Data Collected on " + data.latest);
+                    $("#date").text("Lastest Data Collected on " + data.latest);
 
-            });
+                });
+            }, 1000);
+
         });
     </script>
     </script>

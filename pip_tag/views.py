@@ -3,9 +3,12 @@ from django.http import JsonResponse
 import json
 import ast
 from .models import Data
+import time
 # Create your views here.
+last_time = time.time()
 
 def ajax_submit(request):
+    global last_time
     context = {}
     if request.method == 'POST':
         sensor_data = request.body.decode()
@@ -13,17 +16,16 @@ def ajax_submit(request):
         data = Data(temp=data_dic['temp'],
                     light=data_dic['light'],
                     humidity=data_dic['humidity'])
-        print(data.temp)
-        data.save()
-        context['data'] = data
-        return render(request,'index.html', context)
-    else:
-        # most_recent_data = Data.objects.order_by('-id')[0]
-        # context['data'] = most_recent_data
-        recent_num_data = Data.objects.all()
-        context['data'] = recent_num_data
-        return render(request,'index.html', context)
-    #return render(request, 'ajax1.html')
+        now = time.time()
+        if last_time - now >= 1:
+            print(data.temp)
+            data.save()
+            last_time=now
+        else:
+            pass
+        return render(request,'index.html')
+
+    return render(request, 'index.html')
 
 def index(request):
     return render(request, 'app/index.html')

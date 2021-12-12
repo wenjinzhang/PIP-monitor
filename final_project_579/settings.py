@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sslserver',
     # "werkzeug_debugger_runserver",
-    "django_extensions",
+    # "django_extensions",
     "pip_tag.apps.PipTagConfig",
 ]
 
